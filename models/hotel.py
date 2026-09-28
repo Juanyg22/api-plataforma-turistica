@@ -16,6 +16,7 @@ class HotelDB(Base):
     categoria = Column(Integer)
     calificacion = Column(Float, default=0.0)
     servicio = Column(String(255))
+    estado = Column(String(20), nullable=False, default="ACTIVO")
 
 # --- ESQUEMAS DE VALIDACIÓN (Pydantic) ---
 class HotelBase(BaseModel):
@@ -33,6 +34,10 @@ class HotelCreate(HotelBase):
 
 class HotelResponse(HotelBase):
     id: int
+    estado: str
 
     class Config:
         from_attributes = True
+        
+class HotelEstadoUpdate(BaseModel):
+    estado: str
