@@ -6,6 +6,7 @@ from fastapi.exceptions import RequestValidationError
 from dotenv import load_dotenv
 from database.connection import Base, engine
 from routes.hotel_routes import router as hotel_router
+from routes.viaje_routes import router as viaje_router
 from models.viaje import ViajeDB, ViajeHotelDB
 
 load_dotenv()
@@ -75,6 +76,7 @@ async def catch_exceptions_middleware(request: Request, call_next):
 
 # Registrar las rutas del Hotel
 app.include_router(hotel_router)
+app.include_router(viaje_router)
 
 if __name__ == "__main__":
     import uvicorn
