@@ -269,3 +269,133 @@ Pendiente de integración.
 
 El endpoint todavía no se encuentra disponible en el backend
 utilizado como referencia.
+
+---
+
+# A05 - Redis, caché y expiración
+
+## P-A05-01 - CACHE MISS
+
+**Objetivo:** verificar el comportamiento cuando la clave
+no existe en Redis.
+
+**Procedimiento previsto:**
+
+1. Eliminar la clave correspondiente.
+2. Ejecutar:
+
+`GET /api/v1/hoteles/`
+
+3. Verificar los logs del backend.
+
+**Resultado esperado:**
+
+- CACHE MISS;
+- consulta a SQL Server;
+- almacenamiento en Redis;
+- asignación de TTL.
+
+**Estado actual:** Pendiente de backend.
+
+
+## P-A05-02 - CACHE HIT
+
+**Objetivo:** verificar que una segunda consulta utilice Redis.
+
+**Procedimiento previsto:**
+
+1. Ejecutar una primera petición.
+2. Ejecutar nuevamente:
+
+`GET /api/v1/hoteles/`
+
+antes de que expire la clave.
+
+**Resultado esperado:**
+
+- CACHE HIT;
+- respuesta obtenida desde Redis;
+- no se realiza nuevamente la misma consulta a SQL Server.
+
+**Estado actual:** Pendiente de backend.
+
+
+## P-A05-03 - TTL
+
+**Objetivo:** verificar la expiración automática.
+
+**Procedimiento previsto:**
+
+1. Configurar un TTL reducido para demostración.
+2. Realizar una petición.
+3. Consultar el TTL restante.
+4. Esperar la expiración.
+5. Repetir la petición.
+
+**Resultado esperado:**
+
+Después de expirar la clave, la nueva petición produce
+CACHE MISS.
+
+**Estado actual:** Pendiente de backend.
+
+
+## P-A05-04 - Invalidación
+
+**Objetivo:** evitar datos obsoletos después de modificar
+información persistente.
+
+**Procedimiento previsto:**
+
+1. Cargar la lista de hoteles en Redis.
+2. Crear o modificar un hotel.
+3. Verificar que se elimine la clave correspondiente.
+4. Solicitar nuevamente el listado.
+
+**Resultado esperado:**
+
+La nueva solicitud obtiene información actualizada.
+
+**Estado actual:** Pendiente de backend.
+
+
+## P-A05-05 - Redis no disponible
+
+**Objetivo:** comprobar que Redis no sea un punto único
+de fallo.
+
+**Procedimiento previsto:**
+
+1. Detener Redis.
+2. Mantener FastAPI y SQL Server activos.
+3. Ejecutar:
+
+`GET /api/v1/hoteles/`
+
+**Resultado esperado:**
+
+- FastAPI registra un error o bypass de caché;
+- consulta SQL Server;
+- devuelve HTTP 200 si la base de datos está disponible.
+
+**Estado actual:** Pendiente de backend.
+
+
+## P-A05-06 - Metadatos de caché en frontend
+
+**Objetivo:** comprobar que el frontend pueda interpretar
+información de caché cuando FastAPI la proporcione.
+
+Headers previstos:
+
+- X-Cache
+- X-Cache-TTL
+- X-Data-Source
+- X-Last-Updated
+
+**Resultado esperado:**
+
+La incorporación de Redis no requiere modificar
+la estructura JSON de hoteles.
+
+**Estado actual:** Frontend preparado.
