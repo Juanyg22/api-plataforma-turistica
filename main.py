@@ -9,6 +9,7 @@ from routes.hotel_routes import router as hotel_router
 from routes.viaje_routes import router as viaje_router
 from models.viaje import ViajeDB, ViajeHotelDB
 from models.evento_procesado import EventoProcesadoDB
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
 
@@ -19,6 +20,17 @@ app = FastAPI(
     title="API - Plataforma Turística",
     description="API RESTful para la gestión de hoteles (AE1)",
     version="1.0.0"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5500",
+        "http://127.0.0.1:5500",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # 1. MANEJADOR DE VALIDACIONES: Convierte el 422 en 400 (Requerimiento AE1)
