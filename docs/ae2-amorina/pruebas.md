@@ -399,3 +399,67 @@ La incorporación de Redis no requiere modificar
 la estructura JSON de hoteles.
 
 **Estado actual:** Frontend preparado.
+---
+
+# A06 - Manejo de errores, fuente y actualización
+
+## P-A06-01 - Error de conexión
+
+**Objetivo:** comprobar el comportamiento cuando FastAPI
+no está disponible.
+
+**Pasos:**
+
+1. Mantener FastAPI detenido.
+2. Abrir el catálogo.
+3. Esperar la finalización de la petición.
+
+**Resultado esperado:**
+
+- desaparece el spinner;
+- aparece un mensaje de error;
+- la interfaz no queda bloqueada;
+- aparece la opción Reintentar.
+
+**Resultado:** OK.
+
+
+## P-A06-02 - Reintento
+
+**Objetivo:** comprobar que una petición fallida pueda
+ejecutarse nuevamente.
+
+**Pasos:**
+
+1. Provocar un error de conexión.
+2. Esperar el mensaje de error.
+3. Presionar Reintentar.
+
+**Resultado esperado:**
+
+Se inicia una nueva solicitud.
+
+**Resultado:** OK.
+
+
+## P-A06-03 - Timeout
+
+**Objetivo:** evitar esperas indefinidas.
+
+**Resultado esperado:**
+
+Después del tiempo configurado, AbortController cancela
+la petición y se presenta un mensaje controlado.
+
+**Resultado:** Implementado.
+
+
+## P-A06-04 - Colección vacía
+
+**Objetivo:** diferenciar ausencia de resultados de un
+error del servidor.
+
+**Entrada conceptual:**
+
+```json
+[]
