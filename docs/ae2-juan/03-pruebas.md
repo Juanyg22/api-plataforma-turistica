@@ -289,3 +289,52 @@ Resultado esperado:
 Resultado obtenido:
 
 Correcto.
+
+# RabbitMQ e idempotencia
+
+## Publicación manual
+
+Se publicó un evento `HotelDeactivated` desde Python.
+
+Resultado:
+
+- Exchange creado correctamente.
+- Cola `hotel.deactivated` creada correctamente.
+- Mensaje publicado correctamente.
+
+## Consumidor
+
+Se ejecutó:
+
+`python -m consumers.hotel_event_consumer`
+
+El consumidor recibió el mensaje y realizó ACK correctamente.
+
+## Idempotencia
+
+Se publicó dos veces:
+
+`event_id = idem-001`
+
+Resultado:
+
+- primera entrega: procesada y registrada;
+- segunda entrega: detectada como duplicada;
+- SQL Server conservó una sola fila.
+
+## Integración API - RabbitMQ
+
+Se realizó una baja lógica real del Hotel 3.
+
+Resultado:
+
+- PATCH: `200 OK`;
+- Hotel actualizado a INACTIVO;
+- `HotelDeactivated` publicado;
+- mensaje recibido por el consumidor;
+- registro persistido en `eventos_procesados`;
+- ACK realizado correctamente.
+
+Resultado general:
+
+Correcto.

@@ -8,6 +8,7 @@ from database.connection import Base, engine
 from routes.hotel_routes import router as hotel_router
 from routes.viaje_routes import router as viaje_router
 from models.viaje import ViajeDB, ViajeHotelDB
+from models.evento_procesado import EventoProcesadoDB
 
 load_dotenv()
 

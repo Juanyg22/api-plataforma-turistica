@@ -279,25 +279,63 @@ Completado.
 
 ---
 
-# RF-AE2-J06 — Mensajería/eventos y pruebas backend
+# RF-AE2-J06 — Mensajería, eventos e idempotencia
 
-## Estado
+## Issue relacionada
 
-Pendiente.
+`AE2 - Implementar evento HotelDeactivated con RabbitMQ`
 
-La implementación deberá definir un flujo concreto de comunicación asíncrona antes de incorporar RabbitMQ.
+## Implementación
 
-Deberán documentarse:
+Se incorporó RabbitMQ para comunicar de forma asíncrona la baja lógica de un Hotel.
 
-- productor;
-- consumidor;
-- evento;
-- contenido del mensaje;
-- comportamiento ante reintentos;
-- tratamiento de mensajes repetidos;
-- evidencia de ejecución.
+Productor:
 
----
+API FastAPI.
+
+Evento:
+
+`HotelDeactivated`
+
+Exchange:
+
+`turismo.events`
+
+Routing key:
+
+`hotel.deactivated`
+
+Queue:
+
+`hotel.deactivated`
+
+Consumidor:
+
+`consumers/hotel_event_consumer.py`
+
+## Idempotencia
+
+Se incorporó la tabla:
+
+`eventos_procesados`
+
+Los eventos se identifican mediante `event_id`.
+
+Un mismo event_id puede ser entregado más de una vez, pero solamente es procesado una vez.
+
+## Pruebas
+
+- publicación manual correcta;
+- consumo correcto;
+- ACK manual;
+- prueba con mensaje duplicado;
+- persistencia de un único registro para `idem-001`;
+- publicación automática desde PATCH de Hotel;
+- consumo y persistencia del evento real.
+
+## Resultado
+
+Completado.
 
 # Resumen de commits individuales
 
