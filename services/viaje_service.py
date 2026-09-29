@@ -62,12 +62,15 @@ class ViajeService:
         # 2. Verificar que exista el hotel
         hotel = (
             db.query(HotelDB)
-            .filter(HotelDB.id == estadia.hotel_id)
+            .filter(
+                HotelDB.id == estadia.hotel_id,
+                HotelDB.estado == "ACTIVO"
+            )
             .first()
         )
 
         if not hotel:
-            raise LookupError("Hotel no encontrado")
+            raise LookupError("Hotel no encontrado o inactivo")
 
         # 3. Verificar que las fechas estén dentro del viaje
         if (
