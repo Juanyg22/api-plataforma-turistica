@@ -177,3 +177,95 @@ Los datos son obtenidos desde una estructura externa y
 procesados dinámicamente por JavaScript.
 
 **Resultado:** OK.
+
+---
+
+# A04 - Integración de actividades
+
+## P-A04-01 - Carga del modo demostración
+
+**Objetivo:** verificar la carga dinámica de actividades.
+
+**Pasos:**
+
+1. Iniciar Live Server.
+2. Abrir:
+
+`actividades.html?demoA04=1`
+
+**Resultado esperado:**
+
+- se carga `actividades_mock.json`;
+- se generan las tarjetas;
+- no es necesario tener FastAPI operativo.
+
+**Resultado:** OK.
+
+
+## P-A04-02 - Renderizado dinámico
+
+**Objetivo:** comprobar que las actividades no estén
+codificadas individualmente en el HTML.
+
+**Resultado esperado:**
+
+JavaScript genera las tarjetas utilizando los datos
+recibidos desde el JSON.
+
+**Resultado:** OK.
+
+
+## P-A04-03 - Información de fuente
+
+**Objetivo:** verificar la trazabilidad de la actividad.
+
+**Resultado esperado:**
+
+Cada actividad puede mostrar:
+
+- proveedor;
+- external_id;
+- fecha de actualización.
+
+**Resultado:** OK.
+
+
+## P-A04-04 - Estado sin resultados
+
+**Objetivo:** verificar el comportamiento ante una colección vacía.
+
+**Resultado esperado:**
+
+La interfaz informa que no existen actividades disponibles.
+
+**Resultado:** Implementado.
+
+
+## P-A04-05 - Error de carga
+
+**Objetivo:** verificar el comportamiento si no pueden
+obtenerse las actividades.
+
+**Resultado esperado:**
+
+- desaparece el spinner;
+- aparece un mensaje de error;
+- aparece la opción Reintentar.
+
+**Resultado:** Implementado.
+
+
+## P-A04-06 - Endpoint real
+
+**Objetivo:** comprobar:
+
+GET /api/v1/actividades/
+
+**Estado actual:**
+
+Pendiente de integración.
+
+**Motivo:**
+
+El endpoint todavía no se encuentra disponible en el backend
+utilizado como referencia.
