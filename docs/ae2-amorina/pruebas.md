@@ -99,3 +99,81 @@ La lógica frontend se encuentra implementada.
 
 La prueba con datos reales queda pendiente hasta disponer
 del backend y SQL Server operativos.
+
+---
+
+# A03 - Precios y promociones externas
+
+## P-A03-01 - Carga del proveedor simulado
+
+**Objetivo:** verificar la lectura de información externa simulada.
+
+**Pasos:**
+
+1. Iniciar el frontend mediante Live Server.
+2. Abrir:
+
+`index.html?demoA03=1`
+
+**Resultado esperado:**
+
+- se carga `booking_mock.json`;
+- los hoteles muestran datos externos;
+- no se necesita FastAPI.
+
+**Resultado:** OK.
+
+
+## P-A03-02 - Precio promocional
+
+**Objetivo:** comprobar que un hotel pueda mostrar precio
+base y precio promocional.
+
+**Resultado esperado:**
+
+- precio anterior visible;
+- precio actual visible;
+- descuento visible;
+- promoción visible.
+
+**Resultado:** OK.
+
+
+## P-A03-03 - Fuente y actualización
+
+**Objetivo:** verificar la trazabilidad del dato externo.
+
+**Resultado esperado:**
+
+La interfaz muestra:
+
+- proveedor;
+- fecha de actualización.
+
+**Resultado:** OK.
+
+
+## P-A03-04 - Hotel sin promoción
+
+**Objetivo:** comprobar el comportamiento cuando no existe
+una promoción.
+
+**Resultado esperado:**
+
+La interfaz muestra el precio disponible sin inventar
+un descuento.
+
+**Resultado:** OK.
+
+
+## P-A03-05 - Sustitución futura
+
+**Objetivo:** comprobar que la interfaz no depende de valores
+escritos manualmente dentro del HTML.
+
+**Resultado esperado:**
+
+Los datos son obtenidos desde una estructura externa y
+procesados dinámicamente por JavaScript.
+
+**Resultado:** OK.
