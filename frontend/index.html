@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PosadasTurismo - Inicio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">PosadasTurismo</a>
+        <nav class="nav" aria-label="Navegación principal">
+            <a href="index.html" class="active">Inicio</a>
+            <a href="actividades.html">Explorar</a>
+            <a href="ofertas.html">Ofertas</a>
+            <a href="registro-hotel.html">Registrar Hotel</a>
+            <a href="login.html" class="btn-nav-action">Ingresar</a>
+        </nav>
+    </header>
+
+    <section class="hero hero-home">
+        <div class="hero-content">
+            <span class="hero-eyebrow">Turismo en Misiones</span>
+            <h1>Descubrí Posadas</h1>
+            <p>La ciudad portal hacia la selva misionera. Encontrá tu alojamiento ideal.</p>
+        </div>
+
+        <form class="search-container" id="form-busqueda">
+            <div class="search-field search-location">
+                <label for="ubicacion">Ubicación / Zona</label>
+                <input id="ubicacion" type="text" placeholder="Ej. Costanera, Microcentro">
+            </div>
+            <div class="search-field">
+                <label for="checkin">Check-in</label>
+                <input id="checkin" type="date">
+            </div>
+            <div class="search-field">
+                <label for="checkout">Check-out</label>
+                <input id="checkout" type="date">
+            </div>
+            <div class="search-field">
+                <label for="huespedes">Huéspedes</label>
+                <select id="huespedes">
+                    <option value="1">1 Adulto</option>
+                    <option value="2" selected>2 Adultos</option>
+                    <option value="3">3 Adultos</option>
+                    <option value="4">4 Adultos</option>
+                    <option value="5">5 Adultos</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-search">Buscar</button>
+        </form>
+    </section>
+
+    <main class="main-container">
+        <div class="section-heading">
+            <div>
+                <span class="section-kicker">Alojamientos</span>
+                <h2>Encontrá dónde hospedarte</h2>
+            </div>
+            <p>Usá los filtros para ajustar los resultados según precio, categoría y zona.</p>
+        </div>
+
+        <div class="layout-grid">
+            <aside class="filter-panel">
+                <div class="filter-header">
+                    <h3>Filtros</h3>
+                    <span>Refiná tu búsqueda</span>
+                </div>
+
+                <div class="filter-group">
+                    <label>Rango de precio ($)</label>
+                    <div class="filter-row">
+                        <input type="number" id="precio-min" placeholder="Mínimo">
+                        <input type="number" id="precio-max" placeholder="Máximo">
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label>Categoría</label>
+                    <label class="check-option"><input type="checkbox" value="5 Estrellas" checked> 5 Estrellas</label>
+                    <label class="check-option"><input type="checkbox" value="4 Estrellas" checked> 4 Estrellas</label>
+                    <label class="check-option"><input type="checkbox" value="3 Estrellas" checked> 3 Estrellas</label>
+                </div>
+
+                <div class="filter-group">
+                    <label>Zona</label>
+                    <label class="check-option"><input type="checkbox" checked> Microcentro</label>
+                    <label class="check-option"><input type="checkbox" checked> Costanera</label>
+                    <label class="check-option"><input type="checkbox"> Zona Aeropuerto</label>
+                </div>
+
+                <button class="btn-submit btn-full" type="button">Aplicar filtros</button>
+            </aside>
+
+            <section class="results-panel">
+                <!-- A02: estados visuales del consumo de la API REST -->
+                <div id="loading-spinner" class="api-state-card api-state-loading" role="status" aria-live="polite">
+                    <div class="spinner" aria-hidden="true"></div>
+                    <div>
+                        <strong>Consultando API REST...</strong>
+                        <p>Estamos solicitando los alojamientos al servidor.</p>
+                        <code>GET /api/v1/hoteles/</code>
+                    </div>
+                </div>
+
+                <div id="error-banner" class="api-state-card api-state-error hidden" role="alert">
+                    <div class="api-state-icon" aria-hidden="true">!</div>
+                    <div class="api-state-content">
+                        <strong id="api-error-title">No se pudieron cargar los alojamientos</strong>
+                        <p id="api-error-message">No fue posible completar la petición a la API.</p>
+                        <div class="api-state-actions">
+                            <button id="btn-reintentar-hoteles" class="btn-api-retry" type="button">Reintentar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="empty-banner" class="api-state-card api-state-empty hidden" role="status">
+                    <div class="api-state-icon" aria-hidden="true">○</div>
+                    <div class="api-state-content">
+                        <strong>No hay alojamientos disponibles</strong>
+                        <p>La API respondió correctamente, pero la lista está vacía.</p>
+                    </div>
+                </div>
+
+                <div id="api-success-hoteles" class="api-success-note hidden" aria-live="polite">
+                    <span class="api-success-dot" aria-hidden="true"></span>
+                    <span id="api-success-text">Datos cargados desde la API REST.</span>
+                </div>
+
+                <div id="listado" class="hotel-list"></div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 PosadasTurismo · Universidad Cuenca del Plata · AE2</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Alojamiento - PosadasTurismo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">PosadasTurismo</a>
+        <nav class="nav" aria-label="Navegación principal">
+            <a href="index.html">Inicio</a>
+            <a href="actividades.html">Explorar</a>
+            <a href="ofertas.html">Ofertas</a>
+            <a href="registro-hotel.html" class="active">Registrar Hotel</a>
+            <a href="login.html" class="btn-nav-action">Ingresar</a>
+        </nav>
+    </header>
+
+    <section class="hero hero-compact">
+        <div class="hero-content">
+            <span class="hero-eyebrow">Administración</span>
+            <h1>Registrar alojamiento</h1>
+            <p>Incorporá un nuevo hotel a la plataforma de turismo de Posadas.</p>
+        </div>
+    </section>
+
+    <main class="main-container form-page-container">
+        <section class="card-panel form-card">
+            <div class="form-card-heading">
+                <div>
+                    <span class="section-kicker">Nuevo registro</span>
+                    <h2>Datos del alojamiento</h2>
+                </div>
+                <p>Completá los campos obligatorios para registrar la nueva entidad.</p>
+            </div>
+
+            <form id="form-registro-hotel" class="form-grid">
+                <div class="form-group">
+                    <label for="nombre-hotel">Nombre del Hotel</label>
+                    <input id="nombre-hotel" type="text" placeholder="Ej. Hotel Maitei Posadas" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="precio-base">Precio Base ($)</label>
+                    <input id="precio-base" type="number" placeholder="Ej. 85000" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="zona-id">Zona ID</label>
+                    <input id="zona-id" type="number" value="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="categoria">Categoría</label>
+                    <select id="categoria" required>
+                        <option value="5">5 Estrellas</option>
+                        <option value="4" selected>4 Estrellas</option>
+                        <option value="3">3 Estrellas</option>
+                        <option value="2">2 Estrellas</option>
+                    </select>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="direccion">Dirección</label>
+                    <input id="direccion" type="text" placeholder="Ej. Av. Ulises López s/n, Posadas, Misiones" required>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="descripcion">Descripción</label>
+                    <textarea id="descripcion" rows="4" placeholder="Descripción del alojamiento, ubicación y servicios principales..."></textarea>
+                </div>
+
+                <div class="form-actions full-width">
+                    <a href="index.html" class="btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn-submit">Guardar alojamiento</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 PosadasTurismo · Universidad Cuenca del Plata · AE2</p>
+    </footer>
+    <script src="app.js"></script>
+</body>
+</html>

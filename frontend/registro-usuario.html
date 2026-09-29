@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear cuenta - PosadasTurismo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="login-body">
+    <a href="index.html" class="login-brand">PosadasTurismo</a>
+
+    <main class="glass-card glass-card-register">
+        <div class="glass-icon">PT</div>
+        <h1>Crear cuenta</h1>
+        <p>Registrate para poder confirmar reservas en el prototipo.</p>
+
+        <form id="form-registro-usuario">
+            <div class="glass-input-group">
+                <label for="registro-nombre">Nombre y apellido</label>
+                <input id="registro-nombre" type="text" placeholder="Tu nombre completo" autocomplete="name" required>
+            </div>
+            <div class="glass-input-group">
+                <label for="registro-email">Correo electrónico</label>
+                <input id="registro-email" type="email" placeholder="nombre@correo.com" autocomplete="email" required>
+            </div>
+            <div class="glass-input-group">
+                <label for="registro-password">Contraseña</label>
+                <input id="registro-password" type="password" placeholder="Mínimo 6 caracteres" autocomplete="new-password" minlength="6" required>
+            </div>
+            <div class="glass-input-group">
+                <label for="registro-password-confirm">Repetir contraseña</label>
+                <input id="registro-password-confirm" type="password" placeholder="Repetí la contraseña" autocomplete="new-password" minlength="6" required>
+            </div>
+
+            <p class="auth-demo-note">Cuenta local de demostración. No uses contraseñas reales.</p>
+            <button type="submit" class="btn-glass-submit">Crear cuenta</button>
+        </form>
+
+        <div id="auth-message-register" class="auth-message hidden" aria-live="polite"></div>
+
+        <a href="#" id="link-ir-login" class="glass-footer-link">Ya tengo una cuenta</a>
+        <a href="index.html" class="glass-footer-link secondary-link">Volver al inicio</a>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

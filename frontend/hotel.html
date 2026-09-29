@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del hotel - PosadasTurismo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">PosadasTurismo</a>
+        <nav class="nav" aria-label="Navegación principal">
+            <a href="index.html">Inicio</a>
+            <a href="actividades.html">Explorar</a>
+            <a href="ofertas.html">Ofertas</a>
+            <a href="registro-hotel.html">Registrar Hotel</a>
+            <a href="login.html" class="btn-nav-action">Ingresar</a>
+        </nav>
+    </header>
+
+    <main id="hotel-detalle-page" class="hotel-detail-page">
+        <div class="hotel-detail-shell api-pending" id="hotel-detail-shell">
+            <a class="detail-back-link" href="index.html">← Volver a alojamientos</a>
+
+            <!-- A02: estado del GET de un hotel específico -->
+            <div id="detalle-api-status" class="detail-api-status api-state-card api-state-loading" role="status" aria-live="polite">
+                <div class="spinner" aria-hidden="true"></div>
+                <div class="api-state-content">
+                    <strong id="detalle-api-title">Consultando alojamiento...</strong>
+                    <p id="detalle-api-message">Solicitando el recurso individual a la API REST.</p>
+                    <code id="detalle-api-endpoint">GET /api/v1/hoteles/{id}</code>
+                    <div id="detalle-api-actions" class="api-state-actions hidden">
+                        <button id="btn-reintentar-hotel" class="btn-api-retry" type="button">Reintentar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- A05/A06: se completa automáticamente si el backend expone headers de caché/origen -->
+            <div id="detalle-api-meta" class="integration-meta-note hidden" aria-live="polite"></div>
+
+            <section class="detail-heading">
+                <div>
+                    <span id="detalle-hotel-categoria" class="detail-category">Alojamiento</span>
+                    <h1 id="detalle-hotel-nombre">Cargando alojamiento...</h1>
+                    <p id="detalle-hotel-ubicacion" class="detail-location">Posadas, Misiones</p>
+                </div>
+                <div class="detail-price-block">
+                    <span>Desde</span>
+                    <span id="detalle-precio-anterior" class="detail-old-price hidden">—</span>
+                    <strong id="detalle-hotel-precio">—</strong>
+                    <small id="detalle-promocion-precio" class="detail-promo-label hidden">Tarifa externa</small>
+                    <small>precio por noche</small>
+                </div>
+            </section>
+
+            <aside id="detalle-fuente-precio" class="external-source-panel hidden" aria-label="Origen y actualización de la tarifa">
+                <div>
+                    <span class="section-kicker">A03 · Tarifa externa</span>
+                    <strong id="detalle-fuente-precio-texto">Fuente no informada</strong>
+                </div>
+                <div>
+                    <span>Última actualización</span>
+                    <strong id="detalle-fecha-precio">Sin fecha informada</strong>
+                </div>
+            </aside>
+
+            <section id="detalle-galeria" class="detail-gallery" aria-label="Galería del alojamiento"></section>
+
+            <div class="detail-layout">
+                <section class="detail-main-column">
+                    <article class="detail-panel">
+                        <span class="section-kicker">Sobre el alojamiento</span>
+                        <h2>Información general</h2>
+                        <p id="detalle-hotel-descripcion" class="detail-description"></p>
+
+                        <div id="detalle-servicios" class="detail-services"></div>
+
+                        <div class="detail-policy">
+                            <strong>Horarios orientativos</strong>
+                            <span id="detalle-politica"></span>
+                        </div>
+                    </article>
+
+                    <article class="detail-panel">
+                        <span class="section-kicker">Ubicación y entorno</span>
+                        <h2>Conocé la zona antes de reservar</h2>
+                        <p class="detail-disclaimer">La información de esta sección es demostrativa y orientativa. Para decisiones reales conviene consultar fuentes oficiales y al alojamiento.</p>
+
+                        <div class="area-info-grid">
+                            <div class="area-info-card">
+                                <div class="area-info-icon">⌖</div>
+                                <div>
+                                    <h3>Zona</h3>
+                                    <p id="detalle-zona"></p>
+                                </div>
+                            </div>
+
+                            <div class="area-info-card">
+                                <div class="area-info-icon">✓</div>
+                                <div>
+                                    <h3>Seguridad y recomendaciones</h3>
+                                    <p id="detalle-seguridad"></p>
+                                </div>
+                            </div>
+
+                            <div class="area-info-card">
+                                <div class="area-info-icon">↔</div>
+                                <div>
+                                    <h3>Movilidad</h3>
+                                    <p id="detalle-movilidad"></p>
+                                </div>
+                            </div>
+
+                            <div class="area-info-card">
+                                <div class="area-info-icon">◎</div>
+                                <div>
+                                    <h3>Entorno</h3>
+                                    <p id="detalle-entorno"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+
+                <aside id="reservar" class="booking-card">
+                    <div class="booking-card-top">
+                        <span>Reservar estadía</span>
+                        <strong id="reserva-hotel-nombre-lateral">Alojamiento</strong>
+                    </div>
+
+                    <form id="form-estadia" class="booking-form">
+                        <div class="booking-date-grid">
+                            <div class="booking-field">
+                                <label for="reserva-checkin">Entrada</label>
+                                <input id="reserva-checkin" type="date" required>
+                            </div>
+                            <div class="booking-field">
+                                <label for="reserva-checkout">Salida</label>
+                                <input id="reserva-checkout" type="date" required>
+                            </div>
+                        </div>
+
+                        <div class="booking-field">
+                            <label for="reserva-adultos">Adultos</label>
+                            <select id="reserva-adultos" required>
+                                <option value="1">1 adulto</option>
+                                <option value="2" selected>2 adultos</option>
+                                <option value="3">3 adultos</option>
+                                <option value="4">4 adultos</option>
+                                <option value="5">5 adultos</option>
+                                <option value="6">6 adultos</option>
+                            </select>
+                        </div>
+
+                        <div class="booking-date-grid">
+                            <div class="booking-field">
+                                <label for="reserva-ninos">Niños</label>
+                                <select id="reserva-ninos">
+                                    <option value="0" selected>0 niños</option>
+                                    <option value="1">1 niño</option>
+                                    <option value="2">2 niños</option>
+                                    <option value="3">3 niños</option>
+                                    <option value="4">4 niños</option>
+                                </select>
+                            </div>
+                            <div class="booking-field">
+                                <label for="reserva-habitaciones">Habitaciones</label>
+                                <select id="reserva-habitaciones">
+                                    <option value="1" selected>1 habitación</option>
+                                    <option value="2">2 habitaciones</option>
+                                    <option value="3">3 habitaciones</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="booking-summary">
+                            <div><span>Estadía</span><strong id="resumen-noches">—</strong></div>
+                            <div><span>Personas</span><strong id="resumen-huespedes">—</strong></div>
+                            <div class="booking-summary-total"><span>Total estimado</span><strong id="resumen-total">—</strong></div>
+                        </div>
+
+                        <div class="booking-account-note">
+                            <strong>Cuenta obligatoria</strong>
+                            <p>Para confirmar la reserva necesitás iniciar sesión o crear una cuenta.</p>
+                        </div>
+
+                        <div id="mensaje-estadia" class="booking-message hidden" aria-live="polite"></div>
+
+                        <button type="submit" class="btn-book-now">Reservar ahora</button>
+                        <p class="booking-small-note">No se realiza ningún cobro real en este prototipo.</p>
+                    </form>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <div id="modal-reserva" class="modal-reserva hidden" aria-hidden="true">
+        <div class="modal-overlay" data-cerrar-modal></div>
+
+        <div class="modal-contenido" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-reserva">
+            <button type="button" class="modal-cerrar" id="btn-cerrar-modal" aria-label="Cerrar ventana">&times;</button>
+
+            <div class="modal-header">
+                <span class="modal-kicker">Checkout simulado</span>
+                <h2 id="titulo-modal-reserva">Confirmar reserva</h2>
+                <p>Revisá tu estadía y completá datos ficticios de pago para finalizar la demostración.</p>
+            </div>
+
+            <div class="reserva-hotel-info reserva-hotel-info-column">
+                <div class="reserva-info-row">
+                    <span class="reserva-label">Alojamiento</span>
+                    <strong id="modal-hotel-nombre">Hotel seleccionado</strong>
+                </div>
+                <div class="reserva-info-grid">
+                    <div>
+                        <span class="reserva-label">Fechas</span>
+                        <strong id="modal-reserva-fechas">—</strong>
+                    </div>
+                    <div>
+                        <span class="reserva-label">Huéspedes</span>
+                        <strong id="modal-reserva-huespedes">—</strong>
+                    </div>
+                </div>
+                <div class="reserva-info-grid">
+                    <div>
+                        <span class="reserva-label">Precio base</span>
+                        <strong id="modal-hotel-precio">—</strong>
+                    </div>
+                    <div class="reserva-total-highlight">
+                        <span class="reserva-label">Total estimado</span>
+                        <strong id="modal-reserva-total">—</strong>
+                    </div>
+                </div>
+            </div>
+
+            <form id="form-reserva" class="form-reserva">
+                <div class="form-reserva-group full">
+                    <label for="titular-tarjeta">Titular de la tarjeta</label>
+                    <input type="text" id="titular-tarjeta" name="titular" placeholder="Nombre y apellido ficticio" autocomplete="off" required>
+                </div>
+
+                <div class="form-reserva-group full">
+                    <label for="numero-tarjeta">Número de tarjeta</label>
+                    <input type="text" id="numero-tarjeta" name="numeroTarjeta" placeholder="0000 0000 0000 0000" inputmode="numeric" autocomplete="off" maxlength="19" required>
+                </div>
+
+                <div class="form-reserva-row">
+                    <div class="form-reserva-group">
+                        <label for="vencimiento-tarjeta">Vencimiento</label>
+                        <input type="text" id="vencimiento-tarjeta" name="vencimiento" placeholder="MM/AA" inputmode="numeric" autocomplete="off" maxlength="5" required>
+                    </div>
+                    <div class="form-reserva-group">
+                        <label for="cvc-tarjeta">CVC</label>
+                        <input type="password" id="cvc-tarjeta" name="cvc" placeholder="123" inputmode="numeric" autocomplete="off" maxlength="4" required>
+                    </div>
+                </div>
+
+                <div class="modal-aviso">
+                    <span>●</span>
+                    <p>Usá únicamente datos ficticios. Estos campos no se guardan ni se envían al backend.</p>
+                </div>
+
+                <div id="mensaje-reserva" class="mensaje-reserva hidden" aria-live="polite"></div>
+
+                <div class="modal-acciones">
+                    <button type="button" id="btn-cancelar-reserva" class="btn-modal-secundario">Cancelar</button>
+                    <button type="submit" id="btn-confirmar-reserva" class="btn-confirmar-reserva">Confirmar reserva</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 PosadasTurismo · Universidad Cuenca del Plata · AE2</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

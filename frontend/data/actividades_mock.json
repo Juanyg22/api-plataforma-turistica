@@ -1,0 +1,44 @@
+[
+  {
+    "id": 101,
+    "external_id": "ACT-DEMO-1001",
+    "nombre": "Paseo por la Costanera",
+    "tipo": "Paseo urbano",
+    "descripcion": "Recorrido recreativo de referencia para demostrar la integración de actividades externas dentro del prototipo.",
+    "precio": 0,
+    "moneda": "ARS",
+    "ubicacion": "Costanera de Posadas",
+    "proveedor": "Agenda turística externa (simulada)",
+    "fecha_actualizacion": "2026-09-28T18:20:00",
+    "datos_simulados": true,
+    "imagen": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80"
+  },
+  {
+    "id": 102,
+    "external_id": "ACT-DEMO-1002",
+    "nombre": "Experiencia náutica sobre el Paraná",
+    "tipo": "Navegación",
+    "descripcion": "Actividad de demostración para validar precio, proveedor, ubicación y fecha de actualización provenientes de una fuente externa.",
+    "precio": 18000,
+    "moneda": "ARS",
+    "ubicacion": "Río Paraná · Posadas",
+    "proveedor": "Prestador turístico externo (simulado)",
+    "fecha_actualizacion": "2026-09-28T18:25:00",
+    "datos_simulados": true,
+    "imagen": "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=900&q=80"
+  },
+  {
+    "id": 103,
+    "external_id": "ACT-DEMO-1003",
+    "nombre": "Recorrido cultural por el centro",
+    "tipo": "Cultura e historia",
+    "descripcion": "Experiencia simulada para comprobar que el frontend puede consumir y renderizar dinámicamente actividades de distintos tipos.",
+    "precio": 0,
+    "moneda": "ARS",
+    "ubicacion": "Centro de Posadas",
+    "proveedor": "Agenda cultural externa (simulada)",
+    "fecha_actualizacion": "2026-09-28T18:30:00",
+    "datos_simulados": true,
+    "imagen": "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=900&q=80"
+  }
+]

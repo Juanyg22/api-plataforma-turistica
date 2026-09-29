@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión - PosadasTurismo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="login-body">
+    <a href="index.html" class="login-brand">PosadasTurismo</a>
+
+    <main class="glass-card">
+        <h1>Posadas City</h1>
+        <p>Ingresá para reservar y gestionar tu estadía.</p>
+
+        <form id="form-login-page">
+            <div class="glass-input-group">
+                <label for="login-email">Correo electrónico</label>
+                <input id="login-email" type="email" placeholder="nombre@correo.com" autocomplete="email" required>
+            </div>
+            <div class="glass-input-group">
+                <label for="login-password">Contraseña</label>
+                <input id="login-password" type="password" placeholder="Ingresá tu contraseña" autocomplete="current-password" required>
+            </div>
+            <button type="submit" class="btn-glass-submit">Iniciar sesión</button>
+        </form>
+
+        <div id="auth-message-login" class="auth-message hidden" aria-live="polite"></div>
+
+        <a href="#" id="link-crear-cuenta" class="glass-footer-link">¿Todavía no tenés cuenta? Crear cuenta</a>
+        <a href="#" class="glass-footer-link secondary-link">¿Olvidaste tu contraseña?</a>
+        <a href="index.html" class="glass-footer-link secondary-link">Volver al inicio</a>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
