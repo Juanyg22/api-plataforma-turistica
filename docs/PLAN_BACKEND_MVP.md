@@ -107,6 +107,6 @@ Las diez etapas del backend local están terminadas. La demo agrega tres
 cuentas, hotel, habitación, actividad y turno; la verificación deja dos
 reservas canceladas y tres pagos históricos de demostración. No se alteraron
 las filas originales ni se modificó el frontend. La entrega Git solicitada el
-20 de octubre se prepara en `ae2/juan-gonzalez`, con
+20 de octubre se prepara en `master`, por indicación de la usuaria, con
 [guía F12–F14](ENTREGA_JUAN_F12_F14.md). Comparar el entorno de Juan y conectar
 su frontend continúa como coordinación posterior; no se afirma esa integración.

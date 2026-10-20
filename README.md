@@ -62,7 +62,7 @@ ni SQL manual. Ver reproducción y evidencias en la [guía de cierre](docs/ETAPA
 
 ## Entrega para el frontend de Juan
 
-Rama de entrega del backend: `ae2/juan-gonzalez`. La
+Rama de trabajo y entrega del backend: `master`. La
 [guía F12–F14](docs/ENTREGA_JUAN_F12_F14.md) explica descarga, SQL Server,
 CORS, reemplazo de mocks, JWT, permisos y QA conjunto. Juan puede terminar
 F11 antes de conectar la API; su frontend sigue en un proyecto independiente.

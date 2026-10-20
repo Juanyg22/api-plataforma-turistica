@@ -5,21 +5,21 @@ localmente. Juan puede terminar F11 y después conectar el frontend con estos
 contratos. Su frontend se mantiene en un proyecto independiente.
 
 Repositorio: `https://github.com/Juanyg22/api-plataforma-turistica.git`.
-Rama de entrega: **`ae2/juan-gonzalez`**. No asumir que estos cambios están en
-la rama por defecto ni confundir esta rama con la del frontend.
+Rama de trabajo y entrega: **`master`**, la rama principal del repositorio.
+El backend y el frontend se mantienen en sus respectivos proyectos.
 
 ## Descargar y preparar en la PC de Juan
 
 Clonar en una carpeta separada del frontend:
 
 ```powershell
-git clone --branch ae2/juan-gonzalez https://github.com/Juanyg22/api-plataforma-turistica.git backend-juan
+git clone --branch master https://github.com/Juanyg22/api-plataforma-turistica.git backend-juan
 cd backend-juan
 ```
 
 Si ya tiene ese repositorio, conservar sus cambios locales y actualizar desde
-su carpeta: `git fetch origin`, `git switch ae2/juan-gonzalez` y
-`git pull --ff-only origin ae2/juan-gonzalez`.
+su carpeta: `git fetch origin`, `git switch master` y
+`git pull --ff-only origin master`.
 
 Requisitos: Windows, Python 3.12 de 64 bits, SQL Server y ODBC Driver 17.
 No copiar `.venv`, `.env` ni `.demo` de la otra PC.
