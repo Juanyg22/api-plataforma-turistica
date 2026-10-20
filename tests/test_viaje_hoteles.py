@@ -14,6 +14,11 @@ def crear_hotel(client, nombre):
     )
 
     assert response.status_code == 201
+    approval = client.patch(
+        f"/api/v1/hoteles/{response.json()['id']}/aprobacion",
+        json={"aprobacion": "APROBADA"}, headers=client.admin_headers,
+    )
+    assert approval.status_code == 200
 
     return response.json()
 
@@ -21,6 +26,7 @@ def crear_hotel(client, nombre):
 def crear_viaje(client):
     response = client.post(
         "/api/v2/viajes/",
+        headers=client.admin_headers,
         json={
             "nombre": "Viaje a Posadas",
             "fecha_inicio": "2026-10-10",
@@ -39,6 +45,7 @@ def test_asociar_hotel_a_viaje(client):
 
     response = client.post(
         f"/api/v2/viajes/{viaje['id']}/hoteles",
+        headers=client.admin_headers,
         json={
             "hotel_id": hotel["id"],
             "fecha_desde": "2026-10-10",
@@ -70,6 +77,7 @@ def test_estadias_contiguas_estan_permitidas(client):
 
     response_1 = client.post(
         f"/api/v2/viajes/{viaje['id']}/hoteles",
+        headers=client.admin_headers,
         json={
             "hotel_id": hotel_1["id"],
             "fecha_desde": "2026-10-10",
@@ -83,6 +91,7 @@ def test_estadias_contiguas_estan_permitidas(client):
     # cuando termina la primera.
     response_2 = client.post(
         f"/api/v2/viajes/{viaje['id']}/hoteles",
+        headers=client.admin_headers,
         json={
             "hotel_id": hotel_2["id"],
             "fecha_desde": "2026-10-14",
@@ -108,6 +117,7 @@ def test_superposicion_de_estadias_devuelve_409(client):
 
     response_1 = client.post(
         f"/api/v2/viajes/{viaje['id']}/hoteles",
+        headers=client.admin_headers,
         json={
             "hotel_id": hotel_1["id"],
             "fecha_desde": "2026-10-10",
@@ -119,6 +129,7 @@ def test_superposicion_de_estadias_devuelve_409(client):
 
     response_2 = client.post(
         f"/api/v2/viajes/{viaje['id']}/hoteles",
+        headers=client.admin_headers,
         json={
             "hotel_id": hotel_2["id"],
             "fecha_desde": "2026-10-12",
@@ -138,6 +149,7 @@ def test_estadia_fuera_del_periodo_del_viaje(client):
 
     response = client.post(
         f"/api/v2/viajes/{viaje['id']}/hoteles",
+        headers=client.admin_headers,
         json={
             "hotel_id": hotel["id"],
             "fecha_desde": "2026-10-05",
@@ -153,6 +165,7 @@ def test_hotel_inexistente_no_se_puede_asociar(client):
 
     response = client.post(
         f"/api/v2/viajes/{viaje['id']}/hoteles",
+        headers=client.admin_headers,
         json={
             "hotel_id": 99999,
             "fecha_desde": "2026-10-10",
@@ -182,6 +195,7 @@ def test_hotel_inactivo_no_se_puede_asociar(client):
 
     response = client.post(
         f"/api/v2/viajes/{viaje['id']}/hoteles",
+        headers=client.admin_headers,
         json={
             "hotel_id": hotel["id"],
             "fecha_desde": "2026-10-10",
@@ -200,6 +214,7 @@ def test_viaje_inexistente_no_admite_hoteles(client):
 
     response = client.post(
         "/api/v2/viajes/99999/hoteles",
+        headers=client.admin_headers,
         json={
             "hotel_id": hotel["id"],
             "fecha_desde": "2026-10-10",

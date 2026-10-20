@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
+from services.hotel_service import HotelService
 
-from models.hotel import HotelDB
 from models.viaje import (
     ViajeDB,
     ViajeCreate,
@@ -60,17 +60,10 @@ class ViajeService:
             raise LookupError("Viaje no encontrado")
 
         # 2. Verificar que exista el hotel
-        hotel = (
-            db.query(HotelDB)
-            .filter(
-                HotelDB.id == estadia.hotel_id,
-                HotelDB.estado == "ACTIVO"
-            )
-            .first()
-        )
+        hotel = HotelService.get_by_id(db, estadia.hotel_id)
 
         if not hotel:
-            raise LookupError("Hotel no encontrado o inactivo")
+            raise LookupError("Hotel no encontrado o no disponible para publicación")
 
         # 3. Verificar que las fechas estén dentro del viaje
         if (

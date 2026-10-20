@@ -1,19 +1,23 @@
-import os
-from sqlalchemy import create_engine
+from sqlalchemy import URL, create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-from dotenv import load_dotenv
-
-# Cargar variables del .env
-load_dotenv()
-
-SERVER = os.getenv("DB_SERVER")
-DATABASE = os.getenv("DB_NAME")
+from config import DB_SERVER, DB_NAME, DB_DRIVER, DB_CONNECT_TIMEOUT, DB_ECHO
 
 # Cadena de conexión adaptada para Autenticación de Windows
-DATABASE_URL = f"mssql+pyodbc://{SERVER}/{DATABASE}?driver=ODBC+Driver+17+for+SQL+Server&Trusted_Connection=yes"
+DATABASE_URL = URL.create(
+    "mssql+pyodbc",
+    host=DB_SERVER,
+    database=DB_NAME,
+    query={"driver": DB_DRIVER, "Trusted_Connection": "yes"},
+)
 
 # Crear el motor de conexión
-engine = create_engine(DATABASE_URL, echo=True)
+engine = create_engine(
+    DATABASE_URL,
+    echo=DB_ECHO,
+    hide_parameters=True,
+    pool_pre_ping=True,
+    connect_args={"timeout": DB_CONNECT_TIMEOUT},
+)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
@@ -24,16 +28,12 @@ def get_db():
     finally:
         db.close()
         
-# --- Agrega esto al final del archivo para probar la conexión ---
+# Comprobación local opcional, sin exponer detalles de la conexión.
 if __name__ == "__main__":
     from sqlalchemy import text
     try:
         with engine.connect() as connection:
-            result = connection.execute(text("SELECT '¡Conexión exitosa a SQL Server!'"))
-            for row in result:
-                print("\n" + "="*40)
-                print(row[0])
-                print("="*40 + "\n")
-    except Exception as e:
-        print("\n❌ Error al conectar a la base de datos:")
-        print(e)
+            connection.execute(text("SELECT 1"))
+        print("OK: conexión SQL Server verificada.")
+    except Exception:
+        raise SystemExit("No se pudo conectar a SQL Server. Revisar servicio, configuración y permisos de Windows.") from None

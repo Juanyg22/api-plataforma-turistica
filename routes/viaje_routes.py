@@ -4,6 +4,8 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from database.connection import get_db
+from dependencies.auth import require_roles
+from schemas.auth import Rol
 from models.viaje import (
     ViajeCreate,
     ViajeResponse,
@@ -48,7 +50,9 @@ def obtener_viaje(id: int, db: Session = Depends(get_db)):
 @router.post(
     "/",
     response_model=ViajeResponse,
-    status_code=status.HTTP_201_CREATED
+    status_code=status.HTTP_201_CREATED,
+    dependencies=[Depends(require_roles(Rol.ADMIN))],
+    responses={401: {"description": "JWT ausente o inválido"}, 403: {"description": "Solo ADMIN"}},
 )
 def crear_viaje(
     viaje: ViajeCreate,
@@ -59,7 +63,9 @@ def crear_viaje(
 @router.post(
     "/{id}/hoteles",
     response_model=ViajeHotelResponse,
-    status_code=status.HTTP_201_CREATED
+    status_code=status.HTTP_201_CREATED,
+    dependencies=[Depends(require_roles(Rol.ADMIN))],
+    responses={401: {"description": "JWT ausente o inválido"}, 403: {"description": "Solo ADMIN"}},
 )
 def agregar_hotel_a_viaje(
     id: int,

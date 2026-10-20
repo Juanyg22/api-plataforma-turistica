@@ -1,6 +1,7 @@
 def crear_viaje(client, nombre="Viaje Test"):
     response = client.post(
         "/api/v2/viajes/",
+        headers=client.admin_headers,
         json={
             "nombre": nombre,
             "fecha_inicio": "2026-10-10",
@@ -53,6 +54,7 @@ def test_listar_viajes(client):
 def test_viaje_con_fechas_invalidas(client):
     response = client.post(
         "/api/v2/viajes/",
+        headers=client.admin_headers,
         json={
             "nombre": "Viaje inválido",
             "fecha_inicio": "2026-10-20",
@@ -60,8 +62,8 @@ def test_viaje_con_fechas_invalidas(client):
         }
     )
 
-    # Error de validación de Pydantic/FastAPI
-    assert response.status_code == 422
+    # Contrato de errores real de la aplicación (AE1/AE2).
+    assert response.status_code == 400
 
 
 def test_viaje_inexistente_devuelve_404(client):

@@ -1,6 +1,6 @@
 from datetime import date
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 from sqlalchemy import Column, Date, ForeignKey, Integer, String
 
 from database.connection import Base
@@ -73,14 +73,12 @@ class ViajeCreate(BaseModel):
 
 
 class ViajeResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
     id: int
     nombre: str
     fecha_inicio: date
     fecha_fin: date
     estado: str
-
-    class Config:
-        from_attributes = True
 
 
 # =========================================================
@@ -108,12 +106,10 @@ class ViajeHotelCreate(BaseModel):
 
 
 class ViajeHotelResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
     id: int
     viaje_id: int
     hotel_id: int
     fecha_desde: date
     fecha_hasta: date
     estado: str
-
-    class Config:
-        from_attributes = True

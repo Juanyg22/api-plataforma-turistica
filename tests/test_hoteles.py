@@ -17,6 +17,11 @@ def crear_hotel(client, nombre="Hotel Test"):
     )
 
     assert response.status_code == 201
+    approval = client.patch(
+        f"/api/v1/hoteles/{response.json()['id']}/aprobacion",
+        json={"aprobacion": "APROBADA"}, headers=client.admin_headers,
+    )
+    assert approval.status_code == 200
 
     return response.json()
 
